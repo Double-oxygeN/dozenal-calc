@@ -16,7 +16,7 @@ function createProblem(scale) {
     return [IntToDozen(randoms[1]) + " - " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] - randoms[2])];
   } else {
     randoms = randoms.map(i => Math.ceil(i * Math.pow(12, scale)));
-    return [IntToDozen(randoms[1]) + " * " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] * randoms[2])];
+    return [IntToDozen(randoms[1]) + " × " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] * randoms[2])];
   }
 
   return randoms;
