@@ -39,6 +39,30 @@ window.onload = function (e) {
       right: 0,
       answer: 0,
       rate: 1
+    },
+    send_action = function (e) {
+      result.answer++;
+      if (answer === ans.value) {
+        result.right++;
+        judge.innerHTML = "OK";
+        next.disabled = false;
+        sender.disabled = true;
+      } else {
+        judge.innerHTML = "NG";
+      }
+      result.rate = result.right / result.answer;
+      rater.innerHTML = IntToDozen(result.right) + " / " + IntToDozen(result.answer);
+    },
+    next_action = function (e) {
+      if (result.right >= level * 12 && result.rate > 5 / 6) {
+        level++;
+      }
+      [problem.innerHTML, answer] = createProblem(level);
+      judge.innerHTML = "";
+      ans.value = "";
+      ans.focus();
+      sender.disabled = false;
+      next.disabled = true;
     };
 
   next.disabled = true;
@@ -46,29 +70,15 @@ window.onload = function (e) {
 
   [problem.innerHTML, answer] = createProblem(level);
 
-  sender.onclick = function (e) {
-    result.answer++;
-    if (answer === ans.value) {
-      result.right++;
-      judge.innerHTML = "OK";
-      next.disabled = false;
-      sender.disabled = true;
-    } else {
-      judge.innerHTML = "NG";
+  sender.onclick = send_action;
+  next.onclick = next_action;
+  ans.onkeydown = function (e) {
+    if (e.keyCode == 13) {
+      if (next.disabled) {
+        send_action(e);
+      } else if (sender.disabled) {
+        next_action(e);
+      }
     }
-    result.rate = result.right / result.answer;
-    rater.innerHTML = IntToDozen(result.right) + " / " + IntToDozen(result.answer);
-  };
-
-  next.onclick = function (e) {
-    if (result.right >= level * 12 && result.rate > 5 / 6) {
-      level++;
-    }
-    [problem.innerHTML, answer] = createProblem(level);
-    judge.innerHTML = "";
-    ans.value = "";
-    ans.focus();
-    sender.disabled = false;
-    next.disabled = true;
   };
 };
