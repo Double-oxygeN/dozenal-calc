@@ -15,8 +15,12 @@ function createProblem(scale) {
     randoms = randoms.map(i => Math.ceil(i * 2 * Math.pow(12, scale)));
     return [IntToDozen(randoms[1]) + " - " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] - randoms[2])];
   } else {
-    randoms = randoms.map(i => Math.ceil(i * Math.pow(12, scale)));
-    return [IntToDozen(randoms[1]) + " × " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] * randoms[2])];
+    if (scale < 2) {
+      return createProblem(scale);
+    } else {
+      randoms = randoms.map(i => Math.ceil(i * Math.pow(12, scale - 1)));
+      return [IntToDozen(randoms[1]) + " × " + IntToDozen(randoms[2]) + " = ?", IntToDozen(randoms[1] * randoms[2])];
+    }
   }
 
   return randoms;
