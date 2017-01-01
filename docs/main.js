@@ -3,7 +3,7 @@ function IntToDozen(i) {
 }
 
 function DozenToInt(d) {
-  return parseInt(d.replace(/X/g, "a").replace(/E/g, "b"), 12);
+  return parseInt(d.replace(/[xX]/g, "a").replace(/[eE]/g, "b"), 12);
 }
 
 function createProblem(scale) {
